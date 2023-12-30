@@ -1,0 +1,7 @@
+{
+    "IsEncrypted": false,
+  "Values": {
+    "OpenAiEndpoint": "Url",
+    "OpenAiKey": "123"
+  }
+}

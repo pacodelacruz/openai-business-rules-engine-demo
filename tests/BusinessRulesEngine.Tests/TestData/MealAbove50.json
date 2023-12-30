@@ -1,0 +1,11 @@
+﻿{
+  "id": "10000002",
+  "employeeId": "E123",
+  "employeeName": "John Doe",
+  "employeeLevel": "Manager",
+  "date": "2024-03-01",
+  "type": "Meals",
+  "amount": 50.01,
+  "currency": "AUD",
+  "description": "Meal during business trip"
+}
