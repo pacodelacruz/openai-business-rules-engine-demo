@@ -1,7 +1,8 @@
 {
-    "IsEncrypted": false,
+  "IsEncrypted": false,
   "Values": {
-    "OpenAiEndpoint": "Url",
-    "OpenAiKey": "123"
+    "OpenAiEndpoint": "https://oai-oai-syd-01-sbx.openai.azure.com/",
+    "OpenAiKey": "e909dfc986c647979cfcaf516e5193b4",
+    "OpenAiModelDeployment": "gpt4"
   }
 }

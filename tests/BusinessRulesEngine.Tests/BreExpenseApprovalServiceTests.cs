@@ -1,5 +1,6 @@
 using BusinessRuleEngine.FunctionApp.Models;
 using BusinessRuleEngine.FunctionApp.Services;
+using BusinessRulesEngine.Tests.Helpers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -30,12 +31,20 @@ namespace BusinessRulesEngine.Tests
             _consoleLogger = loggerFactory.CreateLogger<BreExpenseApprovalService>();
         }
 
-        [Fact]
-        public void Test1()
+        [Theory]
+        [InlineData("MealUnder50.json", "Approved")]
+        public async Task TestMealExpenses(string payloadFileName, string expectedStatus)
         {
-            //Assert 
-            Assert.NotEmpty(_breExpenseApprovalService.ReturnEndpoint());
 
+            //Arrange
+            var payload = TestDataHelper.GetTestDataStringFromFile(payloadFileName);
+
+            // Act
+            var result = await _breExpenseApprovalService.ProcessExpense(payload);
+            var breStatus = result.Status.ToString();
+
+            // Assert
+            Assert.Equal(expectedStatus, breStatus);
         }
     }
 }

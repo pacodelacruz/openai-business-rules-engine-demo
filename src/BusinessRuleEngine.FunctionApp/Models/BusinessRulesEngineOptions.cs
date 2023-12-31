@@ -16,6 +16,7 @@ namespace BusinessRuleEngine.FunctionApp.Models
         public string OpenAiEndpoint { get; set; } = "";
 
         public string OpenAiKey { get; set; } = "";
+        public string OpenAiModelDeployment { get; set; } = "";
 
     }
 }

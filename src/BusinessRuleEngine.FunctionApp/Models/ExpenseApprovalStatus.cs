@@ -8,7 +8,7 @@ namespace BusinessRuleEngine.FunctionApp.Models
 {
     public class ExpenseApprovalStatus
     {
-        public required string ExpenseId { get; set; }
+        public string? ExpenseId { get; set; }
         public Constants.ExpenseConstants.ExpenseStatus Status { get; set; }
         public string? StatusReason { get; set; }
 
