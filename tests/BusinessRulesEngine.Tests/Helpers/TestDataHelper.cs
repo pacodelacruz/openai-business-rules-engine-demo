@@ -14,10 +14,10 @@ namespace BusinessRulesEngine.Tests.Helpers
         /// <param name="subfolder"></param>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        internal static string GetTestDataStringFromFile(string fileName)
+        internal static string GetTestDataStringFromFile(string fileName, string subfolder = "")
         {
             // Gets the file path depending on the operating system
-            string path = Path.Combine("TestData", fileName);
+            string path = Path.Combine("TestData", subfolder, fileName);
 
             if (!File.Exists(path))
             {

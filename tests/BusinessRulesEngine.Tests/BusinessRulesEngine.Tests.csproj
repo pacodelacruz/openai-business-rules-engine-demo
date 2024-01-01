@@ -31,16 +31,19 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
-    <None Update="TestData\MealAbove50.json">
+    <None Update="TestData\Expenses\MealAbove50.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TestData\MealAbove50Boss.json">
+    <None Update="TestData\Expenses\MealAbove1000Boss.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TestData\MealUnder50.json">
+    <None Update="TestData\Expenses\MealAbove50Boss.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TestData\MealUnder50Weekend.json">
+    <None Update="TestData\Expenses\MealUnder50.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Expenses\MealUnder50Weekend.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

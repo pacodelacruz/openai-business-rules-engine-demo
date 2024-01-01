@@ -4,6 +4,8 @@ using BusinessRulesEngine.Tests.Helpers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace BusinessRulesEngine.Tests
 {
@@ -32,19 +34,31 @@ namespace BusinessRulesEngine.Tests
         }
 
         [Theory]
-        [InlineData("MealUnder50.json", "Approved")]
-        public async Task TestMealExpenses(string payloadFileName, string expectedStatus)
+        [InlineData("MealUnder50.json", "Approved", false)]
+        [InlineData("MealAbove50.json", "Rejected", true)]
+        [InlineData("MealAbove50Boss.json", "Approved", false)]
+        [InlineData("MealAbove1000Boss.json", "Rejected", true)]
+        [InlineData("MealUnder50Weekend.json", "RequiresManualApproval", true)]
+        public async Task TestMealExpenses(string payloadFileName, string expectedStatus, bool requiresStatusReason = false)
         {
 
             //Arrange
-            var payload = TestDataHelper.GetTestDataStringFromFile(payloadFileName);
+            var expensePayload = TestDataHelper.GetTestDataStringFromFile(payloadFileName, "Expenses");
+            JsonNode expenseNode = JsonNode.Parse(expensePayload)!;
+            JsonNode expenseId = expenseNode!["id"]!;
 
             // Act
-            var result = await _breExpenseApprovalService.ProcessExpense(payload);
-            var breStatus = result.Status.ToString();
+            var result = await _breExpenseApprovalService.ProcessExpense(expensePayload);
 
             // Assert
-            Assert.Equal(expectedStatus, breStatus);
+            // Is the ExpenseId included in the response? 
+            Assert.Equal(expenseId.ToJsonString().Replace("\"", ""), result.ExpenseId?.ToString());
+            // Is the status as expected?
+            Assert.Equal(expectedStatus, result.Status?.ToString());
+            if (requiresStatusReason)
+            {
+                Assert.NotNull(result.StatusReason);
+            }
         }
     }
 }
