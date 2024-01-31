@@ -6,6 +6,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using Xunit;
+using Xunit.Abstractions;
 
 namespace BusinessRulesEngine.Tests
 {
@@ -13,9 +15,10 @@ namespace BusinessRulesEngine.Tests
     {
         private IOptions<BusinessRulesEngineOptions> _options;
         private BreExpenseApprovalService _breExpenseApprovalService;
-        private ILogger _consoleLogger;
+        private ILoggerFactory _loggerFactory;
+        private ILogger<BreExpenseApprovalServiceTests> _consoleLogger;
 
-        public BreExpenseApprovalServiceTests()
+        public BreExpenseApprovalServiceTests(ITestOutputHelper outputHelper)
         {
 
             // Load configuration options from the appsettings.json file in the test project. 
@@ -29,8 +32,17 @@ namespace BusinessRulesEngine.Tests
             _breExpenseApprovalService = new BreExpenseApprovalService(_options);
 
             // Send log messages to the output window during debug. 
-            using var loggerFactory = LoggerFactory.Create(builder => builder.AddDebug());
-            _consoleLogger = loggerFactory.CreateLogger<BreExpenseApprovalService>();
+            // Logging approach as per https://stackoverflow.com/questions/76572703/logger-output-in-c-sharp-net-test
+            _loggerFactory = LoggerFactory.Create(builder =>
+            {
+                builder.AddConsole();
+                builder.AddProvider(new TestLoggerProvider(outputHelper));
+                builder.SetMinimumLevel(LogLevel.Debug);
+            });
+
+
+ //           (builder => builder.AddConsole());
+            _consoleLogger = _loggerFactory.CreateLogger<BreExpenseApprovalServiceTests>();
         }
 
         [Theory]
@@ -51,6 +63,9 @@ namespace BusinessRulesEngine.Tests
             var result = await _breExpenseApprovalService.ProcessExpense(expensePayload);
 
             // Assert
+
+            _consoleLogger.Log(LogLevel.Information, $"expenseId: {expenseId}, status: {result.Status?.ToString()}, reason: {result.StatusReason?.ToString()}");
+
             // Is the ExpenseId included in the response? 
             Assert.Equal(expenseId.ToJsonString().Replace("\"", ""), result.ExpenseId?.ToString());
             // Is the status as expected?
