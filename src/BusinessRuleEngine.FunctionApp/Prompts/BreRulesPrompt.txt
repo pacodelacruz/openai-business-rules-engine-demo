@@ -1,0 +1,7 @@
+﻿- Expenses of type 'meals' that occurred during a weekday and the employeeType is not 'Boss', 
+	Must be approved them if they are equal or under 50 AUD. 
+	Those that are greater than 50 AUD, must be rejected. 
+- Expenses of type 'meals' that occurred during a weekend and the employeeType is not 'Boss', 
+    Must return a status of 'RequiresManualApproval'. 
+- Expenses of type 'meals' and the employeeType is 'Boss', 
+	Must be approved unless the amount is greater than 1000 AUD, which are rejected.

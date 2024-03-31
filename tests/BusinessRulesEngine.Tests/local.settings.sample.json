@@ -1,0 +1,7 @@
+{
+  "Bre": {
+    "OpenAiEndpoint": "https://****.openai.azure.com/",
+    "OpenAiKey": "****",
+    "OpenAiModelDeployment": "gpt4"
+  }
+}

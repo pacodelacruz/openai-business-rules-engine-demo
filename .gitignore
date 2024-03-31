@@ -398,3 +398,6 @@ FodyWeavers.xsd
 *.sln.iml
 /src/BusinessRuleEngine.FunctionApp/local.settings.json
 /tests/BusinessRulesEngine.Tests/local.settings.json
+src/BusinessRuleEngine.FunctionApp/Properties/serviceDependencies.fnapp-breai-syd-dmo-01 - Zip Deploy.json
+src/BusinessRuleEngine.FunctionApp/Properties/ServiceDependencies/fnapp-breai-syd-dmo-01 - Zip Deploy/appInsights1.arm.json
+src/BusinessRuleEngine.FunctionApp/Properties/ServiceDependencies/fnapp-breai-syd-dmo-01 - Zip Deploy/storage1.arm.json

@@ -27,8 +27,7 @@ namespace BusinessRulesEngine.Tests
                .AddJsonFile("local.settings.json", false)
                .Build();
 
-
-            _options = Options.Create(configuration.GetSection("Values").Get<BusinessRulesEngineOptions>());
+            _options = Options.Create(configuration.GetSection("Bre").Get<BusinessRulesEngineOptions>());
             _breExpenseApprovalService = new BreExpenseApprovalService(_options);
 
             // Send log messages to the output window during debug. 
