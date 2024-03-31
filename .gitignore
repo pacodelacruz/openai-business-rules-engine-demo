@@ -396,3 +396,5 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/src/BusinessRuleEngine.FunctionApp/local.settings.json
+/tests/BusinessRulesEngine.Tests/local.settings.json
