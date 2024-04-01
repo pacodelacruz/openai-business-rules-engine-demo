@@ -9,13 +9,16 @@ namespace BusinessRuleEngine.FunctionApp.Services
 {
     public class BreExpenseApprovalService
     {
-        private IOptions<BusinessRulesEngineOptions> _options;
+        private IOptions<OpenAiOptions> _options;
         private OpenAIClient _openAiClient;
         private string _businessRulesEnginePrompt = "";
+        private float _temperature = 0;
 
-        public BreExpenseApprovalService(IOptions<BusinessRulesEngineOptions> options)
+        public BreExpenseApprovalService(IOptions<OpenAiOptions> options)
         {
             _options = options;
+            if (!float.TryParse(_options.Value.Temperature, out _temperature)) 
+                _temperature = 0;
             _openAiClient = new OpenAIClient(new Uri(_options.Value.OpenAiEndpoint),
                                              new AzureKeyCredential(_options.Value.OpenAiKey));
             _businessRulesEnginePrompt = GetBusinessRulesEnginePrompt();
@@ -35,7 +38,7 @@ namespace BusinessRuleEngine.FunctionApp.Services
             {
                 DeploymentName = _options.Value.OpenAiModelDeployment,
                 // Setting the temperature to 0 to create more deterministic results
-                Temperature = 1,
+                Temperature = _temperature,
                 Messages =
                     {
                         // In this case, the system message represents the business rules engine prompt

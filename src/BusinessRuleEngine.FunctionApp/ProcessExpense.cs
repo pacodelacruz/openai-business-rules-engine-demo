@@ -11,16 +11,16 @@ using Microsoft.Extensions.Options;
 
 namespace BusinessRuleEngine.FunctionApp
 {
-    public class AssessExpense
+    public class ProcessExpense
     {
         private readonly ILogger _logger;
-        private IOptions<BusinessRulesEngineOptions> _options;
+        private IOptions<OpenAiOptions> _options;
         private BreExpenseApprovalService _breExpenseApprovalService;
         private JsonSerializerOptions _jsonSerializerOptions;
 
-        public AssessExpense(IOptions<BusinessRulesEngineOptions> options, ILoggerFactory loggerFactory)
+        public ProcessExpense(IOptions<OpenAiOptions> options, ILoggerFactory loggerFactory)
         {
-            _logger = loggerFactory.CreateLogger<AssessExpense>();
+            _logger = loggerFactory.CreateLogger<ProcessExpense>();
             _options = options;
             _breExpenseApprovalService = new BreExpenseApprovalService(_options);
             _jsonSerializerOptions = new JsonSerializerOptions
@@ -29,8 +29,8 @@ namespace BusinessRuleEngine.FunctionApp
             };
         }
 
-        // Http triggered function that receives an expense in JSON format via a post and returns a JSON object with the assessment results and comments.
-        [Function("AssessExpense")]
+        // Http triggered function that receives an expense in JSON format via a post and returns a JSON object with the results and comments.
+        [Function("ProcessExpense")]
         public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequestData req)
         {
             _logger.LogInformation("Assess Expense Function triggered via HTTP Request");

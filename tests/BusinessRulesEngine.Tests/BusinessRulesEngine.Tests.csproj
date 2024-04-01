@@ -27,23 +27,51 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="local.settings.sample.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
     <None Update="local.settings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
-    <None Update="TestData\Expenses\MealAbove50.json">
+    <None Update="TestData\Expenses\Flight-Boss-BNE-DFW-3501.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TestData\Expenses\MealAbove1000Boss.json">
+    <None Update="TestData\Expenses\Flight-Manager-MEL-PER-1600.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TestData\Expenses\MealAbove50Boss.json">
+    <None Update="TestData\Expenses\Flight-Boss-BNE-LAX-3500.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TestData\Expenses\MealUnder50.json">
+    <None Update="TestData\Expenses\Flight-Boss-TAS-CBR-2501.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TestData\Expenses\MealUnder50Weekend.json">
+    <None Update="TestData\Expenses\Flight-Boss-TAS-CBR-2500.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Expenses\Flight-Manager-SYD-AKL-3001.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Expenses\Flight-Manager-SYD-AKL-3000.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Expenses\Flight-Manager-MEL-SYD-1000.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Expenses\Meal-Manager-Above50.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Expenses\Meal-Boss-Above1000.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Expenses\Meal-Boss-Above50.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Expenses\Meal-Manager-Under50.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\Expenses\Meal-Manager-Under50-Weekend.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -1,0 +1,11 @@
+﻿{
+  "id": "22000004",
+  "employeeId": "E234",
+  "employeeName": "Jane Doe",
+  "employeeLevel": "Boss",
+  "date": "2024-03-01",
+  "type": "flight",
+  "amount": 3501,
+  "currency": "AUD",
+  "description": "Round trip from BNE to DFW"
+}

@@ -10,10 +10,10 @@ var host = new HostBuilder()
     {
         services.AddApplicationInsightsTelemetryWorkerService();
         services.ConfigureFunctionsApplicationInsights();
-        services.AddOptions<BusinessRulesEngineOptions>()
+        services.AddOptions<OpenAiOptions>()
             .Configure<IConfiguration>((settings, configuration) =>
             {
-                configuration.GetSection("Bre").Bind(settings);
+                configuration.GetSection("OpenAi").Bind(settings);
             });
     })
     .Build();

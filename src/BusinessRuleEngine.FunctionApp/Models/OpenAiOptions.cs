@@ -11,12 +11,11 @@ namespace BusinessRuleEngine.FunctionApp.Models
     /// Class to implement the Options Pattern described here
     /// https://learn.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-8.0
     /// </summary>
-    public class BusinessRulesEngineOptions
+    public class OpenAiOptions
     {
         public string OpenAiEndpoint { get; set; } = "";
-
         public string OpenAiKey { get; set; } = "";
         public string OpenAiModelDeployment { get; set; } = "";
-
+        public string Temperature { get; set; } = "0";
     }
 }
