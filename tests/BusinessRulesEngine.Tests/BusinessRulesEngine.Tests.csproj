@@ -44,10 +44,10 @@
     <None Update="TestData\Expenses\Flight-Boss-BNE-LAX-3500.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TestData\Expenses\Flight-Boss-TAS-CBR-2501.json">
+    <None Update="TestData\Expenses\Flight-Boss-HBA-CBR-2501.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TestData\Expenses\Flight-Boss-TAS-CBR-2500.json">
+    <None Update="TestData\Expenses\Flight-Boss-HBA-CBR-2500.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestData\Expenses\Flight-Manager-SYD-AKL-3001.json">

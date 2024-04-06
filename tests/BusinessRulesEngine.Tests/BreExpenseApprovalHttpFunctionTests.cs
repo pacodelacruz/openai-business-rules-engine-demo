@@ -1,37 +1,48 @@
 using BusinessRuleEngine.FunctionApp.Models;
+using BusinessRuleEngine.Tests.Models;
 using BusinessRuleEngine.FunctionApp.Services;
 using BusinessRulesEngine.Tests.Helpers;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using Xunit;
 using Xunit.Abstractions;
+using Xunit.Sdk;
 
 namespace BusinessRulesEngine.Tests
 {
-    public class BreExpenseApprovalServiceTests
+
+    public class BreExpenseApprovalHttpFunctionTests
     {
-        private IOptions<OpenAiOptions> _options;
-        private BreExpenseApprovalService _breExpenseApprovalService;
+        private IOptions<OpenAiOptions> _openAiOptions;
+        private IOptions<FunctionAppOptions> _functionAppOptions;
+        private JsonSerializerOptions _jsonSerializerOptions;
         private ILoggerFactory _loggerFactory;
-        private ILogger<BreExpenseApprovalServiceTests> _consoleLogger;
+        private ILogger<BreExpenseApprovalHttpFunctionTests> _consoleLogger;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public BreExpenseApprovalServiceTests(ITestOutputHelper outputHelper)
+        public BreExpenseApprovalHttpFunctionTests(ITestOutputHelper outputHelper)
         {
-
             // Load configuration options from the appsettings.json file in the test project. 
             var configuration = new ConfigurationBuilder()
                .SetBasePath(Directory.GetCurrentDirectory())
                .AddJsonFile("local.settings.json", false)
                .Build();
 
-            _options = Options.Create(configuration.GetSection("OpenAi").Get<OpenAiOptions>());
-            _breExpenseApprovalService = new BreExpenseApprovalService(_options);
+            _openAiOptions = Options.Create(configuration.GetSection("OpenAi").Get<OpenAiOptions>());
+            _functionAppOptions = Options.Create(configuration.GetSection("FunctionApp").Get<FunctionAppOptions>());
 
-            // Send log messages to the output window during debug. 
-            // Logging approach as per https://stackoverflow.com/questions/76572703/logger-output-in-c-sharp-net-test
+            _httpClientFactory = new ServiceCollection()
+                .AddHttpClient()
+                .BuildServiceProvider()
+                .GetRequiredService<IHttpClientFactory>();
+
+
             _loggerFactory = LoggerFactory.Create(builder =>
             {
                 builder.AddConsole();
@@ -39,9 +50,13 @@ namespace BusinessRulesEngine.Tests
                 builder.SetMinimumLevel(LogLevel.Debug);
             });
 
+            _consoleLogger = _loggerFactory.CreateLogger<BreExpenseApprovalHttpFunctionTests>();
 
- //           (builder => builder.AddConsole());
-            _consoleLogger = _loggerFactory.CreateLogger<BreExpenseApprovalServiceTests>();
+            _jsonSerializerOptions = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            };
+
         }
 
         [Theory]
@@ -60,31 +75,39 @@ namespace BusinessRulesEngine.Tests
         [InlineData("Flight-Boss-BNE-DFW-3501.json", "RequiresManualApproval", true)]
         public async Task TestExpenses(string payloadFileName, string expectedStatus, bool requiresStatusReason = false)
         {
-
             _consoleLogger.Log(LogLevel.Information, $"Testing PayloadFileName: {payloadFileName}");
 
-            //Arrange
+            // Arrange
             var expensePayload = TestDataHelper.GetTestDataStringFromFile(payloadFileName, "Expenses");
             JsonNode expenseNode = JsonNode.Parse(expensePayload)!;
             JsonNode expenseId = expenseNode!["id"]!;
+            var requestContent = new StringContent(expensePayload, Encoding.UTF8, "application/json");
+
+            using var httpClient = _httpClientFactory.CreateClient();
 
             // Act
-            var result = await _breExpenseApprovalService.ProcessExpense(expensePayload);
+            var response = await httpClient.PostAsync(_functionAppOptions.Value.FunctionAppEndpoint, requestContent);
+            var responseContent = await response.Content.ReadAsStringAsync();
+
 
             // Assert
 
-            _consoleLogger.Log(LogLevel.Information, $"expenseId: {expenseId}, status: {result.Status?.ToString()}, reason: {result.StatusReason?.ToString()}");
+            // Deserialize the responseContent into ExpenseApprovalStatus model
+            var expenseApprovalStatus = JsonSerializer.Deserialize<ExpenseApprovalStatus>(responseContent, _jsonSerializerOptions);
+
+            if (expenseApprovalStatus is null)
+                throw new Exception("Failed to deserialize response content into ExpenseApprovalStatus model");                
+
+            _consoleLogger.Log(LogLevel.Information, $"expenseId: {expenseId}, status: {expenseApprovalStatus.Status?.ToString()}, reason: {expenseApprovalStatus.StatusReason?.ToString()}");
 
             // Is the ExpenseId included in the response? 
-            Assert.Equal(expenseId.ToJsonString().Replace("\"", ""), result.ExpenseId?.ToString());
+            Assert.Equal(expenseId.ToJsonString().Replace("\"", ""), expenseApprovalStatus.ExpenseId?.ToString());
             // Is the status as expected?
-            Assert.Equal(expectedStatus, result.Status?.ToString());
+            Assert.Equal(expectedStatus, expenseApprovalStatus.Status?.ToString());
             if (requiresStatusReason)
             {
-                Assert.NotNull(result.StatusReason);
+                Assert.NotNull(expenseApprovalStatus.StatusReason);
             }
         }
-
-
     }
 }
