@@ -1,6 +1,5 @@
 ﻿using Azure;
 using Azure.AI.OpenAI;
-using BusinessRuleEngine.FunctionApp.Extensions;
 using BusinessRuleEngine.FunctionApp.Models;
 using Microsoft.Extensions.Options;
 using System.Text.Json;
@@ -12,16 +11,18 @@ namespace BusinessRuleEngine.FunctionApp.Services
         private IOptions<OpenAiOptions> _options;
         private OpenAIClient _openAiClient;
         private string _businessRulesEnginePrompt = "";
-        private float _temperature = 0;
+        private JsonSerializerOptions _jsonSerializerOptionsWithCamel;
 
         public BreExpenseApprovalService(IOptions<OpenAiOptions> options)
         {
             _options = options;
-            if (!float.TryParse(_options.Value.Temperature, out _temperature)) 
-                _temperature = 0;
             _openAiClient = new OpenAIClient(new Uri(_options.Value.OpenAiEndpoint),
                                              new AzureKeyCredential(_options.Value.OpenAiKey));
             _businessRulesEnginePrompt = GetBusinessRulesEnginePrompt();
+            _jsonSerializerOptionsWithCamel = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            };
         }
 
         public string ReturnEndpoint()
@@ -32,13 +33,12 @@ namespace BusinessRuleEngine.FunctionApp.Services
         public async Task<ExpenseApprovalStatus> ProcessExpense(string expenseRequest)
         {
             var expenseApprovalStatus = new ExpenseApprovalStatus();
-            //var businessRulesEnginePrompt = GetBusinessRulesEnginePrompt();
 
+            // Setting the temperature to 0 to create more deterministic results
             var chatCompletionsOptions = new ChatCompletionsOptions()
             {
                 DeploymentName = _options.Value.OpenAiModelDeployment,
-                // Setting the temperature to 0 to create more deterministic results
-                Temperature = _temperature,
+                Temperature = _options.Value.Temperature,
                 Messages =
                     {
                         // In this case, the system message represents the business rules engine prompt
@@ -53,8 +53,11 @@ namespace BusinessRuleEngine.FunctionApp.Services
             var responseMessage = chatCompletion.Value.Choices[0].Message;
             Console.WriteLine($"[{responseMessage.Role.ToString().ToUpperInvariant()}]: {responseMessage.Content}");
 
-            expenseApprovalStatus = responseMessage.Content.ToString().DeserializeFromCamelCase<ExpenseApprovalStatus>();
-            //JsonSerializer.Deserialize<ExpenseApprovalStatus>(responseMessage.Content);
+            expenseApprovalStatus = JsonSerializer.Deserialize<ExpenseApprovalStatus>(responseMessage.Content, _jsonSerializerOptionsWithCamel);
+
+            if (expenseApprovalStatus is null)
+                throw new Exception("Failed to deserialize the response from the OpenAI API");
+
             return expenseApprovalStatus;
         }
 

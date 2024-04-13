@@ -10,8 +10,6 @@ You will return your response as a JSON document. Below is an example of the exp
 
 Once you assess the expense, you need to return one of these statuses: 
 'Approved', 'Rejected', or 'RequiresManualApproval'.
-Some expenses are assessed considering whether it is a weekend or not. 
-Use the date field in the expense payload to determine whether it is a weekend or not.
 The 'statusReason' field must have a value for all expensese that are not approved. 
 When setting the statusReason field value, state the rule applied clearly and 
 use Australian humour in explaining why the expense was not approved. 

@@ -16,14 +16,14 @@ namespace BusinessRuleEngine.FunctionApp
         private readonly ILogger _logger;
         private IOptions<OpenAiOptions> _options;
         private BreExpenseApprovalService _breExpenseApprovalService;
-        private JsonSerializerOptions _jsonSerializerOptions;
+        private JsonSerializerOptions _jsonSerializerOptionsWithCamel;
 
         public ProcessExpense(IOptions<OpenAiOptions> options, ILoggerFactory loggerFactory)
         {
             _logger = loggerFactory.CreateLogger<ProcessExpense>();
             _options = options;
             _breExpenseApprovalService = new BreExpenseApprovalService(_options);
-            _jsonSerializerOptions = new JsonSerializerOptions
+            _jsonSerializerOptionsWithCamel = new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             };
@@ -33,7 +33,7 @@ namespace BusinessRuleEngine.FunctionApp
         [Function("ProcessExpense")]
         public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequestData req)
         {
-            _logger.LogInformation("Assess Expense Function triggered via HTTP Request");
+            _logger.LogInformation("Process Expense Function triggered via HTTP Request");
 
             // Get the request body as a string
             string? expensePayload = await req.ReadAsStringAsync();
@@ -49,7 +49,7 @@ namespace BusinessRuleEngine.FunctionApp
             // Create a JSON response with the assessment results and comments
             var response = req.CreateResponse(HttpStatusCode.OK);
             response.Headers.Add("Content-Type", "application/json");
-            await response.WriteStringAsync(JsonSerializer.Serialize(assessmentResponse, _jsonSerializerOptions));
+            await response.WriteStringAsync(JsonSerializer.Serialize(assessmentResponse, _jsonSerializerOptionsWithCamel));
 
             return response;
         }
