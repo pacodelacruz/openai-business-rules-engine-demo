@@ -70,7 +70,7 @@ namespace BusinessRulesEngine.Tests
         [InlineData("Flight-Manager-SYD-AKL-3001.json", "Rejected", true)]
         [InlineData("Flight-Boss-HBA-CBR-2500.json", "Approved", false)]
         [InlineData("Flight-Boss-HBA-CBR-2501.json", "RequiresManualApproval", true)]
-        [InlineData("Flight-Boss-BNE-LAX-3450.json", "Approved", false)]
+        [InlineData("Flight-Boss-BNE-LAX-3499.json", "Approved", false)]
         [InlineData("Flight-Boss-BNE-DFW-3501.json", "RequiresManualApproval", true)]
         public async Task TestExpenses(string payloadFileName, string expectedStatus, bool requiresStatusReason = false)
         {
