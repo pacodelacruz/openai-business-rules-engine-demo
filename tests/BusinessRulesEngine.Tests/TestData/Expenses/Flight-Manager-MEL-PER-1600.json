@@ -1,0 +1,11 @@
+﻿{
+  "id": "20000002",
+  "employeeId": "E456",
+  "employeeName": "Brian Max",
+  "employeeLevel": "Manager",
+  "date": "2024-03-01",
+  "type": "flight",
+  "amount": 1600,
+  "currency": "AUD",
+  "description": "Round trip from MEL to PER"
+}

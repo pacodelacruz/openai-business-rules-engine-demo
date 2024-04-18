@@ -1,0 +1,11 @@
+﻿{
+  "id": "22000003",
+  "employeeId": "E234",
+  "employeeName": "Jane Doe",
+  "employeeLevel": "Boss",
+  "date": "2024-03-01",
+  "type": "flight",
+  "amount": 3499,
+  "currency": "AUD",
+  "description": "Round trip from BNE to LAX"
+}

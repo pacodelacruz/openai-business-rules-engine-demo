@@ -1,0 +1,11 @@
+﻿{
+  "id": "20000004",
+  "employeeId": "E456",
+  "employeeName": "Brian Max",
+  "employeeLevel": "Manager",
+  "date": "2024-03-01",
+  "type": "flight",
+  "amount": 3001,
+  "currency": "AUD",
+  "description": "Round trip from SYD to AKL"
+}
