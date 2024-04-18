@@ -1,6 +1,6 @@
-using BusinessRuleEngine.FunctionApp.Models;
-using BusinessRuleEngine.Tests.Models;
-using BusinessRuleEngine.FunctionApp.Services;
+using BusinessRulesEngine.FunctionApp.Models;
+using BusinessRulesEngine.Tests.Models;
+using BusinessRulesEngine.FunctionApp.Services;
 using BusinessRulesEngine.Tests.Helpers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

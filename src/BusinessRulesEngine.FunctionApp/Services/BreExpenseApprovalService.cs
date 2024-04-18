@@ -1,10 +1,10 @@
 ﻿using Azure;
 using Azure.AI.OpenAI;
-using BusinessRuleEngine.FunctionApp.Models;
+using BusinessRulesEngine.FunctionApp.Models;
 using Microsoft.Extensions.Options;
 using System.Text.Json;
 
-namespace BusinessRuleEngine.FunctionApp.Services
+namespace BusinessRulesEngine.FunctionApp.Services
 {
     public class BreExpenseApprovalService
     {

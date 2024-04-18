@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessRuleEngine.FunctionApp", "src\BusinessRuleEngine.FunctionApp\BusinessRuleEngine.FunctionApp.csproj", "{17FFE1DA-E173-443D-88AE-EFF1A983B11D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessRulesEngine.FunctionApp", "src\BusinessRulesEngine.FunctionApp\BusinessRulesEngine.FunctionApp.csproj", "{17FFE1DA-E173-443D-88AE-EFF1A983B11D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessRulesEngine.Tests", "tests\BusinessRulesEngine.Tests\BusinessRulesEngine.Tests.csproj", "{C50F5A67-59C9-482C-B413-3B505B543926}"
 EndProject

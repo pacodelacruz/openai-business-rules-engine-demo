@@ -1,15 +1,15 @@
 using System.Net;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using BusinessRuleEngine.FunctionApp.Models;
-using BusinessRuleEngine.FunctionApp.Services;
+using BusinessRulesEngine.FunctionApp.Models;
+using BusinessRulesEngine.FunctionApp.Services;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace BusinessRuleEngine.FunctionApp
+namespace BusinessRulesEngine.FunctionApp
 {
     public class ProcessExpense
     {

@@ -1,4 +1,4 @@
-using BusinessRuleEngine.FunctionApp.Models;
+using BusinessRulesEngine.FunctionApp.Models;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

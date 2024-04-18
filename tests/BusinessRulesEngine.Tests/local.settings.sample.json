@@ -6,6 +6,6 @@
     "Temperature": "0"
   },
   "FunctionApp": {
-    "FunctionAppEndpoint": "https://*****.azurewebsites.net/api/ProcessExpense?code=*****=="
+    "FunctionAppEndpoint": "https://*****.azurewebsites.net/api/ProcessExpense?code==="
   }
 }

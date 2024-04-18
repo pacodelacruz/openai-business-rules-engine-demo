@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessRuleEngine.FunctionApp.Constants
+namespace BusinessRulesEngine.FunctionApp.Constants
 {
     public class ExpenseConstants
     {

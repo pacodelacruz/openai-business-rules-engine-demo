@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\BusinessRuleEngine.FunctionApp\BusinessRuleEngine.FunctionApp.csproj" />
+    <ProjectReference Include="..\..\src\BusinessRulesEngine.FunctionApp\BusinessRulesEngine.FunctionApp.csproj" />
   </ItemGroup>
 
   <ItemGroup>

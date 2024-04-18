@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessRuleEngine.Tests.Models
+namespace BusinessRulesEngine.Tests.Models
 {
 
     /// <summary>

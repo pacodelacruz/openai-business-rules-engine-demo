@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
 
-namespace BusinessRuleEngine.FunctionApp.Models
+namespace BusinessRulesEngine.FunctionApp.Models
 {
     public class ExpenseClaimApprovalStatus
     {

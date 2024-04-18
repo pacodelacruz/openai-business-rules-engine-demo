@@ -1,5 +1,5 @@
-using BusinessRuleEngine.FunctionApp.Models;
-using BusinessRuleEngine.FunctionApp.Services;
+using BusinessRulesEngine.FunctionApp.Models;
+using BusinessRulesEngine.FunctionApp.Services;
 using BusinessRulesEngine.Tests.Helpers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;

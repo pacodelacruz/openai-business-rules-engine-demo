@@ -12,6 +12,6 @@ Once you assess the expense, you need to return one of following statuses:
 'Approved', 'Rejected', or 'RequiresManualApproval'.
 The 'statusReason' field must have a value for all responses, particularly for
 those not approved.
-When setting the 'statusReason' field value, state the rule applied clearly with an Aussie humour. 
+When setting the 'statusReason' field value, state the rule applied clearly. 
 Be as precise and deterministic as possible when calculating the status.
 Below are the rules you need to follow to assess the expense:
