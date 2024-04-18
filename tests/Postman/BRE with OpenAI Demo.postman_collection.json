@@ -1,0 +1,439 @@
+{
+	"info": {
+		"_postman_id": "bb1e1606-d68c-4b11-b283-7db52ceabca7",
+		"name": "BRE with OpenAI Demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33601573"
+	},
+	"item": [
+		{
+			"name": "Flight-Boss-BNE-DFW-3501-MA",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"22000004\",\r\n  \"employeeId\": \"E234\",\r\n  \"employeeName\": \"Jane Doe\",\r\n  \"employeeLevel\": \"Boss\",\r\n  \"date\": \"2024-03-01\",\r\n  \"type\": \"flight\",\r\n  \"amount\": 3501,\r\n  \"currency\": \"AUD\",\r\n  \"description\": \"Round trip from BNE to DFW\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}/api/ProcessExpense?code={{function-key}}",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"api",
+						"ProcessExpense"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "{{function-key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Flight-Boss-BNE-LAX-3450-A",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"22000003\",\r\n  \"employeeId\": \"E234\",\r\n  \"employeeName\": \"Jane Doe\",\r\n  \"employeeLevel\": \"Boss\",\r\n  \"date\": \"2024-03-01\",\r\n  \"type\": \"flight\",\r\n  \"amount\": 3450,\r\n  \"currency\": \"AUD\",\r\n  \"description\": \"Round trip from BNE to LAX\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}/api/ProcessExpense?code={{function-key}}",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"api",
+						"ProcessExpense"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "{{function-key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Flight-Boss-HBA-CBR-2500-A",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"22000001\",\r\n  \"employeeId\": \"E234\",\r\n  \"employeeName\": \"Jane Doe\",\r\n  \"employeeLevel\": \"Boss\",\r\n  \"date\": \"2024-03-01\",\r\n  \"type\": \"flight\",\r\n  \"amount\": 2500,\r\n  \"currency\": \"AUD\",\r\n  \"description\": \"Round trip from HBA to CBR\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}/api/ProcessExpense?code={{function-key}}",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"api",
+						"ProcessExpense"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "{{function-key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Flight-Boss-HBA-CBR-2501-MA",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"22000002\",\r\n  \"employeeId\": \"E234\",\r\n  \"employeeName\": \"Jane Doe\",\r\n  \"employeeLevel\": \"Boss\",\r\n  \"date\": \"2024-03-01\",\r\n  \"type\": \"flight\",\r\n  \"amount\": 2501,\r\n  \"currency\": \"AUD\",\r\n  \"description\": \"Round trip from HBA to CBR\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}/api/ProcessExpense?code={{function-key}}",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"api",
+						"ProcessExpense"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "{{function-key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Flight-Manager-MEL-PER-1600-R",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"20000002\",\r\n  \"employeeId\": \"E456\",\r\n  \"employeeName\": \"Brian Max\",\r\n  \"employeeLevel\": \"Manager\",\r\n  \"date\": \"2024-03-01\",\r\n  \"type\": \"flight\",\r\n  \"amount\": 1600,\r\n  \"currency\": \"AUD\",\r\n  \"description\": \"Round trip from MEL to PER\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}/api/ProcessExpense?code={{function-key}}",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"api",
+						"ProcessExpense"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "{{function-key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Flight-Manager-MEL-SYD-1000-A",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"20000001\",\r\n  \"employeeId\": \"E456\",\r\n  \"employeeName\": \"Brian Max\",\r\n  \"employeeLevel\": \"Manager\",\r\n  \"date\": \"2024-03-01\",\r\n  \"type\": \"flight\",\r\n  \"amount\": 1000,\r\n  \"currency\": \"AUD\",\r\n  \"description\": \"Round trip from MEL to SYD\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}/api/ProcessExpense?code={{function-key}}",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"api",
+						"ProcessExpense"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "{{function-key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Flight-Manager-SYD-AKL-3000-MA",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"20000003\",\r\n  \"employeeId\": \"E456\",\r\n  \"employeeName\": \"Brian Max\",\r\n  \"employeeLevel\": \"Manager\",\r\n  \"date\": \"2024-03-01\",\r\n  \"type\": \"flight\",\r\n  \"amount\": 3000,\r\n  \"currency\": \"AUD\",\r\n  \"description\": \"Round trip from SYD to AKL\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}/api/ProcessExpense?code={{function-key}}",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"api",
+						"ProcessExpense"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "{{function-key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Flight-Manager-SYD-AKL-3001-R",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"20000004\",\r\n  \"employeeId\": \"E456\",\r\n  \"employeeName\": \"Brian Max\",\r\n  \"employeeLevel\": \"Manager\",\r\n  \"date\": \"2024-03-01\",\r\n  \"type\": \"flight\",\r\n  \"amount\": 3001,\r\n  \"currency\": \"AUD\",\r\n  \"description\": \"Round trip from SYD to AKL\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}/api/ProcessExpense?code={{function-key}}",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"api",
+						"ProcessExpense"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "{{function-key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Meal-Boss-Above1000-R",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"10000004\",\r\n  \"employeeId\": \"E234\",\r\n  \"employeeName\": \"Jane Doe\",\r\n  \"employeeLevel\": \"Boss\",\r\n  \"date\": \"2024-03-01\",\r\n  \"type\": \"Meals\",\r\n  \"amount\": 1250.00,\r\n  \"currency\": \"AUD\",\r\n  \"description\": \"Meal during business trip\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}/api/ProcessExpense?code={{function-key}}",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"api",
+						"ProcessExpense"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "{{function-key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Meal-Boss-Above50-A",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"10000003\",\r\n  \"employeeId\": \"E234\",\r\n  \"employeeName\": \"Jane Doe\",\r\n  \"employeeLevel\": \"Boss\",\r\n  \"date\": \"2024-03-01\",\r\n  \"type\": \"Meals\",\r\n  \"amount\": 250.00,\r\n  \"currency\": \"AUD\",\r\n  \"description\": \"Meal during business trip\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}/api/ProcessExpense?code={{function-key}}",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"api",
+						"ProcessExpense"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "{{function-key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Meal-Manager-Above50-R",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"10000002\",\r\n  \"employeeId\": \"E123\",\r\n  \"employeeName\": \"John Doe\",\r\n  \"employeeLevel\": \"Manager\",\r\n  \"date\": \"2024-03-01\",\r\n  \"type\": \"Meals\",\r\n  \"amount\": 50.01,\r\n  \"currency\": \"AUD\",\r\n  \"description\": \"Meal during business trip\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}/api/ProcessExpense?code={{function-key}}",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"api",
+						"ProcessExpense"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "{{function-key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Meal-Manager-Under50-A",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"10000001\",\r\n  \"employeeId\": \"E123\",\r\n  \"employeeName\": \"John Doe\",\r\n  \"employeeLevel\": \"Manager\",\r\n  \"date\": \"2024-03-01\",\r\n  \"type\": \"Meals\",\r\n  \"amount\": 49.99,\r\n  \"currency\": \"AUD\",\r\n  \"description\": \"Meal during business trip\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}/api/ProcessExpense?code={{function-key}}",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"api",
+						"ProcessExpense"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "{{function-key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Meal-Manager-Under50-Weekend-MA",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"10000005\",\r\n  \"employeeId\": \"E123\",\r\n  \"employeeName\": \"John Doe\",\r\n  \"employeeLevel\": \"Manager\",\r\n  \"date\": \"2024-03-17\",\r\n  \"type\": \"Meals\",\r\n  \"amount\": 40.99,\r\n  \"currency\": \"AUD\",\r\n  \"description\": \"Meal during business trip\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}/api/ProcessExpense?code={{function-key}}",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"api",
+						"ProcessExpense"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "{{function-key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

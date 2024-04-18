@@ -1,14 +1,14 @@
-﻿- Expenses of type 'meals' that occurred during a weekday and the employeeType is not 'Boss', 
+﻿- Expenses of type 'meals' that occurred during a weekday and the employee level is not 'Boss', 
 	Must be approved only if they are equal or under 50 AUD. Otherwise they must be rejected. 
-- Expenses of type 'meals' that occurred during a weekend and the employeeType is not 'Boss', 
+- Expenses of type 'meals' that occurred during a weekend and the employee level is not 'Boss', 
     Must be rejected unless their amount is equal or under 50 AUD, which must return a status of 'RequiresManualApproval'. 
-- Expenses of type 'meals' and the employeeType is 'Boss', 
-	Must be approved unless the amount is greater than 1000 AUD, which are rejected.
-- Expenses of type 'flight' when it is a domestic flight within Australia and the employeeType is not 'Boss',
-	Must be approved unless the amount is greater than 1500 AUD, which are rejected.
-- Expenses of type 'flight' when it is an international flight and the employeeType is not 'Boss' 
-    Must return a status of 'RequiresManualApproval' unless cost is greater than 3000 AUD, which are rejected.
-- Expenses of type 'flight' when it is a domestic flight within Australia and the employeeType is 'Boss',
+- Expenses of type 'meals' and the employee level is 'Boss', 
+	Must be approved unless the amount is greater than 1000 AUD, which must be rejected.
+- Expenses of type 'flight' that are for a domestic flight within Australia and the employee level is not 'Boss',
+	Must be approved unless the amount is greater than 1500 AUD, which must be rejected.
+- Expenses of type 'flight' that are for an international flight and the employee level is not 'Boss' 
+    Must return a status of 'RequiresManualApproval' unless their cost is greater than 3000 AUD, which must be rejected.
+- Expenses of type 'flight' that are for a domestic flight within Australia and the employee level is 'Boss',
 	Must be approved unless the amount is greater than 2500 AUD, which require a manual approval.
-- Expenses of type 'flight' when it is an international flight and the employeeType is 'Boss',
+- Expenses of type 'flight' that are for an international flight and the employee level is 'Boss',
 	Must be approved unless the amount is greater than 3500 AUD, which require a manual approval.

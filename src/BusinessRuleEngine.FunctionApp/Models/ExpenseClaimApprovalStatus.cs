@@ -7,7 +7,7 @@ using System.Text.Json;
 
 namespace BusinessRuleEngine.FunctionApp.Models
 {
-    public class ExpenseApprovalStatus
+    public class ExpenseClaimApprovalStatus
     {
         public string? ExpenseId { get; set; }
         public string? Status { get; set; }

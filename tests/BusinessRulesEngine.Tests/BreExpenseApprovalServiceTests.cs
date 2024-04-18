@@ -64,21 +64,22 @@ namespace BusinessRulesEngine.Tests
             var expensePayload = TestDataHelper.GetTestDataStringFromFile(payloadFileName, "Expenses");
             JsonNode expenseNode = JsonNode.Parse(expensePayload)!;
             JsonNode expenseId = expenseNode!["id"]!;
+            string expectedExpenseId = expenseId.ToJsonString().Replace("\"", "");
 
             // Act
-            var result = await _breExpenseApprovalService.ProcessExpense(expensePayload);
+            var processExpressClaimResult = await _breExpenseApprovalService.ProcessExpenseClaim(expensePayload);
+            
+            _consoleLogger.Log(LogLevel.Information, $"expenseId: {expenseId}, status: {processExpressClaimResult.Status?.ToString()}, reason: {processExpressClaimResult.StatusReason?.ToString()}");
 
             // Assert
 
-            _consoleLogger.Log(LogLevel.Information, $"expenseId: {expenseId}, status: {result.Status?.ToString()}, reason: {result.StatusReason?.ToString()}");
-
             // Is the ExpenseId included in the response? 
-            Assert.Equal(expenseId.ToJsonString().Replace("\"", ""), result.ExpenseId?.ToString());
+            Assert.Equal(expectedExpenseId, processExpressClaimResult.ExpenseId?.ToString());
             // Is the status as expected?
-            Assert.Equal(expectedStatus, result.Status?.ToString());
+            Assert.Equal(expectedStatus, processExpressClaimResult.Status?.ToString());
             if (requiresStatusReason)
             {
-                Assert.NotNull(result.StatusReason);
+                Assert.NotNull(processExpressClaimResult.StatusReason);
             }
         }
     }

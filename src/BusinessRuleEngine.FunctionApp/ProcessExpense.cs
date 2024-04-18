@@ -36,17 +36,17 @@ namespace BusinessRuleEngine.FunctionApp
             _logger.LogInformation("Process Expense Function triggered via HTTP Request");
 
             // Get the request body as a string
-            string? expensePayload = await req.ReadAsStringAsync();
+            string? expenseClaimPayload = await req.ReadAsStringAsync();
 
-            if (string.IsNullOrEmpty(expensePayload))
+            if (string.IsNullOrEmpty(expenseClaimPayload))
             {
                 _logger.LogError("Request body is empty");
                 return req.CreateResponse(HttpStatusCode.BadRequest);
             }
 
-            var assessmentResponse = await _breExpenseApprovalService.ProcessExpense(expensePayload);
+            var assessmentResponse = await _breExpenseApprovalService.ProcessExpenseClaim(expenseClaimPayload);
 
-            // Create a JSON response with the assessment results and comments
+            // Create a JSON response with the claim assessment results
             var response = req.CreateResponse(HttpStatusCode.OK);
             response.Headers.Add("Content-Type", "application/json");
             await response.WriteStringAsync(JsonSerializer.Serialize(assessmentResponse, _jsonSerializerOptionsWithCamel));

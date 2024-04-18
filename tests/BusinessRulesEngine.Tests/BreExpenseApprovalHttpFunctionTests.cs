@@ -21,7 +21,7 @@ namespace BusinessRulesEngine.Tests
     {
         private IOptions<OpenAiOptions> _openAiOptions;
         private IOptions<FunctionAppOptions> _functionAppOptions;
-        private JsonSerializerOptions _jsonSerializerOptions;
+        private JsonSerializerOptions _jsonSerializerOptionsWithCamel;
         private ILoggerFactory _loggerFactory;
         private ILogger<BreExpenseApprovalHttpFunctionTests> _consoleLogger;
         private readonly IHttpClientFactory _httpClientFactory;
@@ -51,7 +51,7 @@ namespace BusinessRulesEngine.Tests
 
             _consoleLogger = _loggerFactory.CreateLogger<BreExpenseApprovalHttpFunctionTests>();
 
-            _jsonSerializerOptions = new JsonSerializerOptions
+            _jsonSerializerOptionsWithCamel = new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             };
@@ -80,19 +80,20 @@ namespace BusinessRulesEngine.Tests
             var expensePayload = TestDataHelper.GetTestDataStringFromFile(payloadFileName, "Expenses");
             JsonNode expenseNode = JsonNode.Parse(expensePayload)!;
             JsonNode expenseId = expenseNode!["id"]!;
-            var requestContent = new StringContent(expensePayload, Encoding.UTF8, "application/json");
+            string expectedExpenseId = expenseId.ToJsonString().Replace("\"", "");
 
+            var requestContent = new StringContent(expensePayload, Encoding.UTF8, "application/json");
             using var httpClient = _httpClientFactory.CreateClient();
 
             // Act
-            var response = await httpClient.PostAsync(_functionAppOptions.Value.FunctionAppEndpoint, requestContent);
-            var responseContent = await response.Content.ReadAsStringAsync();
+            var processExpenseFunctionResponse = await httpClient.PostAsync(_functionAppOptions.Value.FunctionAppEndpoint, requestContent);
+            var processExpenseFunctionResponseBody = await processExpenseFunctionResponse.Content.ReadAsStringAsync();
 
 
             // Assert
 
             // Deserialize the responseContent into ExpenseApprovalStatus model
-            var expenseApprovalStatus = JsonSerializer.Deserialize<ExpenseApprovalStatus>(responseContent, _jsonSerializerOptions);
+            var expenseApprovalStatus = JsonSerializer.Deserialize<ExpenseClaimApprovalStatus>(processExpenseFunctionResponseBody, _jsonSerializerOptionsWithCamel);
 
             if (expenseApprovalStatus is null)
                 throw new Exception("Failed to deserialize response content into ExpenseApprovalStatus model");                
@@ -100,7 +101,7 @@ namespace BusinessRulesEngine.Tests
             _consoleLogger.Log(LogLevel.Information, $"expenseId: {expenseId}, status: {expenseApprovalStatus.Status?.ToString()}, reason: {expenseApprovalStatus.StatusReason?.ToString()}");
 
             // Is the ExpenseId included in the response? 
-            Assert.Equal(expenseId.ToJsonString().Replace("\"", ""), expenseApprovalStatus.ExpenseId?.ToString());
+            Assert.Equal(expectedExpenseId, expenseApprovalStatus.ExpenseId?.ToString());
             // Is the status as expected?
             Assert.Equal(expectedStatus, expenseApprovalStatus.Status?.ToString());
             if (requiresStatusReason)

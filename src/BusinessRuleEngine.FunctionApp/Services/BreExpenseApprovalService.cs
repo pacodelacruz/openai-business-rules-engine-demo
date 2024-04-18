@@ -25,15 +25,8 @@ namespace BusinessRuleEngine.FunctionApp.Services
             };
         }
 
-        public string ReturnEndpoint()
+        public async Task<ExpenseClaimApprovalStatus> ProcessExpenseClaim(string expenseClaimRequest)
         {
-            return _options.Value.OpenAiEndpoint;
-        }
-
-        public async Task<ExpenseApprovalStatus> ProcessExpense(string expenseRequest)
-        {
-            var expenseApprovalStatus = new ExpenseApprovalStatus();
-
             // Setting the temperature to 0 to create more deterministic results
             var chatCompletionsOptions = new ChatCompletionsOptions()
             {
@@ -45,7 +38,7 @@ namespace BusinessRuleEngine.FunctionApp.Services
                         // that describes how the chat completion model should behave
                         // And the user message represents the received expense, i.e., the input from the end user
                         new ChatRequestSystemMessage(_businessRulesEnginePrompt),
-                        new ChatRequestUserMessage(expenseRequest)
+                        new ChatRequestUserMessage(expenseClaimRequest)
                     }
             };
 
@@ -53,7 +46,7 @@ namespace BusinessRuleEngine.FunctionApp.Services
             var responseMessage = chatCompletion.Value.Choices[0].Message;
             Console.WriteLine($"[{responseMessage.Role.ToString().ToUpperInvariant()}]: {responseMessage.Content}");
 
-            expenseApprovalStatus = JsonSerializer.Deserialize<ExpenseApprovalStatus>(responseMessage.Content, _jsonSerializerOptionsWithCamel);
+            var expenseApprovalStatus = JsonSerializer.Deserialize<ExpenseClaimApprovalStatus>(responseMessage.Content, _jsonSerializerOptionsWithCamel);
 
             if (expenseApprovalStatus is null)
                 throw new Exception("Failed to deserialize the response from the OpenAI API");
