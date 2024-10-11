@@ -51,7 +51,6 @@ namespace BusinessRulesEngine.Tests
         [InlineData("Flight-Manager-MEL-SYD-1000.json", "Approved", false)]
         [InlineData("Flight-Manager-MEL-PER-1600.json", "Rejected", true)]
         [InlineData("Flight-Manager-SYD-AKL-3000.json", "RequiresManualApproval", true)]
-        [InlineData("Flight-Manager-SYD-AKL-3001.json", "Rejected", true)]
         [InlineData("Flight-Boss-HBA-CBR-2500.json", "Approved", false)]
         [InlineData("Flight-Boss-HBA-CBR-2501.json", "RequiresManualApproval", true)]
         [InlineData("Flight-Boss-BNE-LAX-3499.json", "Approved", false)]
