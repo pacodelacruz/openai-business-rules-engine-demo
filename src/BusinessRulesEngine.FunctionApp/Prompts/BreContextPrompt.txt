@@ -10,8 +10,10 @@ You will return your response as a JSON document. Below is an example of the exp
 
 Once you assess the expense, you need to return one of following statuses: 
 'Approved', 'Rejected', or 'RequiresManualApproval'.
-The 'statusReason' field must have a value for all responses, particularly for
-those not approved.
+The 'statusReason' field must have a value for all responses.
+
 When setting the 'statusReason' field value, state the rule applied clearly. 
+
 Be as precise and deterministic as possible when calculating the status.
+When data is not explicit, use the rest of the document to derive the data.
 Below are the rules you need to follow to assess the expense:
