@@ -1,52 +1,54 @@
 ﻿using Azure;
 using Azure.AI.OpenAI;
+using Azure.Identity;
 using BusinessRulesEngine.FunctionApp.Models;
 using Microsoft.Extensions.Options;
+using OpenAI;
+using OpenAI.Chat;
+using System.ClientModel;
 using System.Text.Json;
 
 namespace BusinessRulesEngine.FunctionApp.Services
 {
     public class BreExpenseApprovalService
     {
-        private IOptions<OpenAiOptions> _options;
-        private OpenAIClient _openAiClient;
+        private static IOptions<OpenAiOptions> _options;
+        private AzureOpenAIClient _azureOpenAIClient;
+        private ChatClient _chatClient;
         private string _businessRulesEnginePrompt = "";
         private JsonSerializerOptions _jsonSerializerOptionsWithCamel;
 
         public BreExpenseApprovalService(IOptions<OpenAiOptions> options)
         {
             _options = options;
-            _openAiClient = new OpenAIClient(new Uri(_options.Value.OpenAiEndpoint),
-                                             new AzureKeyCredential(_options.Value.OpenAiKey));
+
+            _azureOpenAIClient = new(
+                new Uri(_options.Value.OpenAiEndpoint),
+                new ApiKeyCredential(_options.Value.OpenAiKey));
+
+            _chatClient = _azureOpenAIClient.GetChatClient(_options.Value.OpenAiModelDeployment);
+
             _businessRulesEnginePrompt = GetBusinessRulesEnginePrompt();
-            _jsonSerializerOptionsWithCamel = new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            };
+            _jsonSerializerOptionsWithCamel = GetJsonSerializationOptions();
         }
 
         public async Task<ExpenseClaimApprovalStatus> ProcessExpenseClaim(string expenseClaimRequest)
         {
-            // Setting the temperature to 0 to create more deterministic results
-            var chatCompletionsOptions = new ChatCompletionsOptions()
-            {
-                DeploymentName = _options.Value.OpenAiModelDeployment,
-                Temperature = _options.Value.Temperature,
-                Messages =
-                    {
-                        // In this case, the system message represents the business rules engine prompt
-                        // that describes how the chat completion model should behave
-                        // And the user message represents the received expense, i.e., the input from the end user
-                        new ChatRequestSystemMessage(_businessRulesEnginePrompt),
-                        new ChatRequestUserMessage(expenseClaimRequest)
-                    }
-            };
 
-            Response<ChatCompletions> chatCompletion = await _openAiClient.GetChatCompletionsAsync(chatCompletionsOptions);
-            var responseMessage = chatCompletion.Value.Choices[0].Message;
-            Console.WriteLine($"[{responseMessage.Role.ToString().ToUpperInvariant()}]: {responseMessage.Content}");
+            var chatCompletionsOptions = GetChatCompletionOptions();
 
-            var expenseApprovalStatus = JsonSerializer.Deserialize<ExpenseClaimApprovalStatus>(responseMessage.Content, _jsonSerializerOptionsWithCamel);
+            ChatCompletion chatCompletion = _chatClient.CompleteChat(
+                [
+                    new SystemChatMessage(_businessRulesEnginePrompt),
+                    new UserChatMessage(expenseClaimRequest),
+                ], 
+                chatCompletionsOptions);
+
+            using JsonDocument structuredJson = JsonDocument.Parse(chatCompletion.Content[0].Text);
+
+            Console.WriteLine($"Expense approval status: {structuredJson.RootElement.GetProperty("status").GetString()}");
+
+            var expenseApprovalStatus = JsonSerializer.Deserialize<ExpenseClaimApprovalStatus>(structuredJson, _jsonSerializerOptionsWithCamel);
 
             if (expenseApprovalStatus is null)
                 throw new Exception("Failed to deserialize the response from the OpenAI API");
@@ -61,6 +63,54 @@ namespace BusinessRulesEngine.FunctionApp.Services
             string businessRulesPrompt = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Prompts", "BreRulesPrompt.txt"));
 
             return businessRulesContextPrompt + "\n" + businessRulesPrompt;
+        }
+
+        private static JsonSerializerOptions GetJsonSerializationOptions()
+        {
+            return new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            };
+        }
+
+        private static AzureOpenAIClientOptions GetAzureOpenAIClientOptions()
+        {
+            return new AzureOpenAIClientOptions(AzureOpenAIClientOptions.ServiceVersion.V2024_08_01_Preview);
+        }
+
+
+        /// <summary>
+        /// Sets temperature and response format for the chat completion options
+        /// </summary>
+        /// <returns></returns>
+        private static ChatCompletionOptions GetChatCompletionOptions()
+        {
+            return new ChatCompletionOptions()
+            {
+                Temperature = _options.Value.Temperature,
+
+                ResponseFormat = ChatResponseFormat.CreateJsonSchemaFormat(
+                    jsonSchemaFormatName: "expense-assessment",
+                    jsonSchema: BinaryData.FromBytes("""
+                        {
+                            "type": "object",
+                            "properties": {
+                                "expenseId": {
+                                  "type": "string"
+                                },
+                                "status": {
+                                  "type": "string"
+                                },
+                                "statusReason": {
+                                  "type": "string"
+                                }
+                              },
+                            "required": ["expenseId", "status", "statusReason"],
+                            "additionalProperties": false
+                        }
+                        """u8.ToArray()),
+                    jsonSchemaIsStrict: true)
+            };
         }
     }
 }
