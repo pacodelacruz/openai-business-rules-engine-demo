@@ -4,9 +4,7 @@ using BusinessRulesEngine.Tests.Helpers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Text.Json;
 using System.Text.Json.Nodes;
-using Xunit;
 using Xunit.Abstractions;
 
 namespace BusinessRulesEngine.Tests

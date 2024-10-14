@@ -1,9 +1,6 @@
-﻿using Azure;
-using Azure.AI.OpenAI;
-using Azure.Identity;
+﻿using Azure.AI.OpenAI;
 using BusinessRulesEngine.FunctionApp.Models;
 using Microsoft.Extensions.Options;
-using OpenAI;
 using OpenAI.Chat;
 using System.ClientModel;
 using System.Text.Json;

@@ -1,18 +1,14 @@
 using BusinessRulesEngine.FunctionApp.Models;
-using BusinessRulesEngine.Tests.Models;
-using BusinessRulesEngine.FunctionApp.Services;
 using BusinessRulesEngine.Tests.Helpers;
+using BusinessRulesEngine.Tests.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
-using Xunit;
 using Xunit.Abstractions;
-using Xunit.Sdk;
 
 namespace BusinessRulesEngine.Tests
 {
