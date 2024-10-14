@@ -16,7 +16,7 @@ namespace BusinessRulesEngine.FunctionApp.Services
         private AzureOpenAIClient _azureOpenAIClient;
         private ChatClient _chatClient;
         private string _businessRulesEnginePrompt = "";
-        private JsonSerializerOptions _jsonSerializerOptionsWithCamel;
+        private JsonSerializerOptions _jsonSerializerOptions;
 
         public BreExpenseApprovalService(IOptions<OpenAiOptions> options)
         {
@@ -29,7 +29,7 @@ namespace BusinessRulesEngine.FunctionApp.Services
             _chatClient = _azureOpenAIClient.GetChatClient(_options.Value.OpenAiModelDeployment);
 
             _businessRulesEnginePrompt = GetBusinessRulesEnginePrompt();
-            _jsonSerializerOptionsWithCamel = GetJsonSerializationOptions();
+            _jsonSerializerOptions = GetJsonSerializationOptions();
         }
 
         public async Task<ExpenseClaimApprovalStatus> ProcessExpenseClaim(string expenseClaimRequest)
@@ -48,7 +48,7 @@ namespace BusinessRulesEngine.FunctionApp.Services
 
             Console.WriteLine($"Expense approval status: {structuredJson.RootElement.GetProperty("status").GetString()}");
 
-            var expenseApprovalStatus = JsonSerializer.Deserialize<ExpenseClaimApprovalStatus>(structuredJson, _jsonSerializerOptionsWithCamel);
+            var expenseApprovalStatus = JsonSerializer.Deserialize<ExpenseClaimApprovalStatus>(structuredJson, _jsonSerializerOptions);
 
             if (expenseApprovalStatus is null)
                 throw new Exception("Failed to deserialize the response from the OpenAI API");
@@ -65,7 +65,7 @@ namespace BusinessRulesEngine.FunctionApp.Services
             return businessRulesContextPrompt + "\n" + businessRulesPrompt;
         }
 
-        private static JsonSerializerOptions GetJsonSerializationOptions()
+        public static JsonSerializerOptions GetJsonSerializationOptions()
         {
             return new JsonSerializerOptions
             {

@@ -4,8 +4,8 @@ You will return your response as a JSON document.
 
 Once you assess the expense, you need to return one of following statuses: 
 'Approved', 'Rejected', or 'RequiresManualApproval'.
-The 'statusReason' field must have a value for all responses.
 
+The 'statusReason' field must have a value for all responses.
 When setting the 'statusReason' field value, state clearly the rule applied, 
 including the values in the claim that were used for the assessment and explain in detail your thought process. 
 

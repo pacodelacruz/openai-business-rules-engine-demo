@@ -5,7 +5,7 @@
     "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
     "OpenAi:OpenAiEndpoint": "https://****.openai.azure.com/",
     "OpenAi:OpenAiKey": "****",
-    "OpenAi:OpenAiModelDeployment": "gpt4",
+    "OpenAi:OpenAiModelDeployment": "gpt-4o",
     "Temperature": "0"
   }
 }
