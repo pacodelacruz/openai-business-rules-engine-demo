@@ -1,4 +1,4 @@
-﻿using Azure.AI.OpenAI;
+using Azure.AI.OpenAI;
 using BusinessRulesEngine.FunctionApp.Models;
 using Microsoft.Extensions.Options;
 using OpenAI.Chat;

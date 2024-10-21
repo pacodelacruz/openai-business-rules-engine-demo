@@ -1,4 +1,4 @@
-﻿- Expenses of type 'flight' that are for a domestic flight within Australia and the employee level is not 'Boss',
+- Expenses of type 'flight' that are for a domestic flight within Australia and the employee level is not 'Boss',
   Must be approved when amount is below or equal to 1500 AUD and must be rejected when the amount is greater than 1500 AUD. 
 
 - Expenses of type 'flight' that are for an international flight and the employee level is not 'Boss'   
