@@ -10,5 +10,7 @@ When setting the 'statusReason' field value, state clearly the rule applied,
 including the values in the claim that were used for the assessment and explain in detail your thought process. 
 
 Be as precise and deterministic as possible when calculating the status.
+
 When data is not explicit, use the rest of the document to derive the data.
+
 Below are the rules you need to follow to assess the expense:

@@ -1,4 +1,4 @@
-﻿using Azure.AI.OpenAI;
+using Azure.AI.OpenAI;
 using BusinessRulesEngine.FunctionApp.Models;
 using Microsoft.Extensions.Options;
 using OpenAI.Chat;
@@ -41,11 +41,11 @@ namespace BusinessRulesEngine.FunctionApp.Services
                 ], 
                 chatCompletionsOptions);
 
-            using JsonDocument structuredJson = JsonDocument.Parse(chatCompletion.Content[0].Text);
+            using JsonDocument responseAsJson = JsonDocument.Parse(chatCompletion.Content[0].Text);
 
-            Console.WriteLine($"Expense approval status: {structuredJson.RootElement.GetProperty("status").GetString()}");
+            Console.WriteLine($"Expense approval status: {responseAsJson.RootElement.GetProperty("status").GetString()}");
 
-            var expenseApprovalStatus = JsonSerializer.Deserialize<ExpenseClaimApprovalStatus>(structuredJson, _jsonSerializerOptions);
+            var expenseApprovalStatus = JsonSerializer.Deserialize<ExpenseClaimApprovalStatus>(responseAsJson, _jsonSerializerOptions);
 
             if (expenseApprovalStatus is null)
                 throw new Exception("Failed to deserialize the response from the OpenAI API");
